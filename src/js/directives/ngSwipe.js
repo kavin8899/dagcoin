@@ -1,4 +1,4 @@
-
+/* global angular */
 
 /*
  * This is a modification from https://github.com/angular/angular.js/blob/master/src/ngTouch/swipe.js
