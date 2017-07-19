@@ -273,17 +273,7 @@ module.exports = function (grunt) {
             dest: 'build/src',
           },
         ],
-      },
-      test: {
-        files: [
-          {
-            expand: true,
-            cwd: 'test/',
-            src: ['**/*.js', '!karma.conf.js'],
-            dest: 'build/test',
-          },
-        ],
-      },
+      }
     },
     browserify: {
       dist: {

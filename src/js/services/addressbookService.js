@@ -3,9 +3,15 @@
 
   /* eslint-disable no-unused-vars */
   angular.module('copayApp.services').factory('addressbookService', (storageService, profileService) => {
-    const root = {};
+    return {
+      getLabel,
+      list,
+      add,
+      remove,
+      removeAll,
+    };
 
-    root.getLabel = function (addr, cb) {
+    function getLabel(addr, cb) {
       const fc = profileService.focusedClient;
       storageService.getAddressbook(fc.credentials.network, (storageServiceError, ab) => {
         if (storageServiceError) {
@@ -20,9 +26,9 @@
         }
         return cb();
       });
-    };
+    }
 
-    root.list = function (cb) {
+    function list(cb) {
       const fc = profileService.focusedClient;
       storageService.getAddressbook(fc.credentials.network, (storageServiceError, ab) => {
         if (storageServiceError) {
@@ -34,9 +40,9 @@
         }
         return cb(storageServiceError, addressBook);
       });
-    };
+    }
 
-    root.add = function (entry, cb) {
+    function add(entry, cb) {
       const fc = profileService.focusedClient;
       root.list((listError, ab) => {
         if (listError) {
@@ -50,16 +56,16 @@
           return cb('Entry already exist');
         }
         addressBook[entry.address] = entry.label;
-        return storageService.setAddressbook(fc.credentials.network, JSON.stringify(addressBook), (setAddressbookError, address) => {
+        return storageService.setAddressbook(fc.credentials.network, JSON.stringify(addressBook), (setAddressbookError) => {
           if (setAddressbookError) {
             return cb('Error adding new entry');
           }
           return root.list((err, addressList) => cb(err, addressList));
         });
       });
-    };
+    }
 
-    root.remove = function (addr, cb) {
+    function remove(addr, cb) {
       const fc = profileService.focusedClient;
       root.list((err, ab) => {
         if (err) {
@@ -79,9 +85,9 @@
           return root.list((listError, addressBook) => cb(listError, addressBook));
         });
       });
-    };
+    }
 
-    root.removeAll = function (cb) {
+    function removeAll(cb) {
       const fc = profileService.focusedClient;
       storageService.removeAddressbook(fc.credentials.network, (err) => {
         if (err) {
@@ -89,8 +95,6 @@
         }
         return cb();
       });
-    };
-
-    return root;
+    }
   });
 }());

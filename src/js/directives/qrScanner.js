@@ -1,4 +1,6 @@
 /* global angular */
+// todo: disabled no-unused-vars for makeSwipeDirective method beause currently we are not using directive. in future it might be removed
+/* eslint-disable no-unused-vars */
 
 (function () {
   'use strict';
