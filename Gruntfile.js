@@ -32,12 +32,8 @@ module.exports = function (grunt) {
           grunt.log.writeln('Waiting for more changes...');
         },
       },
-      css: {
-        files: ['src/css/*.css'],
-        tasks: ['concat:css'],
-      },
       sass: {
-        files: ['src/css/*.scss'],
+        files: ['src/css/*.scss', 'src/css/icons.css'],
         tasks: ['sass', 'concat:css'],
       },
       main: {
@@ -51,14 +47,15 @@ module.exports = function (grunt) {
           'src/js/models/*.js',
           'src/js/controllers/*.js',
         ],
-        tasks: ['concat:js'],
+        tasks: ['concat:js', 'karma:prod'],
       },
     },
 
     sass: {
       dist: {
         options: {
-          style: 'expanded',
+          style: 'compressed',
+          sourcemap: 'none'
         },
         files: {
           'src/css/main.css': 'src/css/main.scss',
@@ -232,10 +229,10 @@ module.exports = function (grunt) {
         version: '0.14.7',
         zip: false,
         macIcns: './public/img/icons/icon-white-outline.icns',
-        winIco: './public/img/icons/icon-white-outline.ico',
-        exeIco: './public/img/icons/icon-white-outline.ico',
+        winIco: './public/img/icons/dagcoin.ico',
+        exeIco: './public/img/icons/dagcoin.ico',
         macPlist: {
-          CFBundleURLTypes: [{ CFBundleURLName: 'DAGCOIN action', CFBundleURLSchemes: ['DAGCOIN-TN'] }],
+          CFBundleURLTypes: [{ CFBundleURLName: 'Dagcoin action', CFBundleURLSchemes: ['DAGCOIN-TN'] }],
           LSHasLocalizedDisplayName: 0,
           /* CFBundleIconFile: 'nw.icns',*/
         },
@@ -262,6 +259,32 @@ module.exports = function (grunt) {
         dest: 'dagcoin-linux64/',
       },
     },
+    babel: {
+      options: {
+        sourceMap: false,
+        presets: ['es2015'],
+      },
+      src: {
+        files: [
+          {
+            expand: true,
+            cwd: 'src/js/',
+            src: ['**/*.js'],
+            dest: 'build/src',
+          },
+        ],
+      },
+      test: {
+        files: [
+          {
+            expand: true,
+            cwd: 'test/',
+            src: ['**/*.js', '!karma.conf.js'],
+            dest: 'build/test',
+          },
+        ],
+      },
+    },
     browserify: {
       dist: {
         options: {
@@ -284,7 +307,7 @@ module.exports = function (grunt) {
         ],
         options: {
           maintainer: {
-            name: 'DAGCOIN',
+            name: 'Dagcoin',
             email: 'byteball@byteball.org',
           },
           long_description: 'A wallet for decentralized value',
@@ -311,6 +334,7 @@ module.exports = function (grunt) {
   });
 
   grunt.loadNpmTasks('grunt-contrib-sass');
+  grunt.loadNpmTasks('grunt-babel');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-watch');
@@ -332,7 +356,7 @@ module.exports = function (grunt) {
   grunt.registerTask('cordova-prod', ['cordova', 'uglify']);
   // grunt.registerTask('prod', ['default', 'uglify']);
   grunt.registerTask('translate', ['nggettext_extract']);
-  grunt.registerTask('test', ['karma:unit']);
+  grunt.registerTask('test', ['karma:prod']);
   grunt.registerTask('test-coveralls', ['karma:prod', 'coveralls']);
   // grunt.registerTask('desktop', ['prod', 'nwjs', 'copy:linux', 'compress:linux32', 'compress:linux64', 'copy:osx', 'exec:osx32', 'exec:osx64']);
   grunt.registerTask('desktop', ['default', 'nwjs']);
