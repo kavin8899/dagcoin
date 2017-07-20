@@ -1,4 +1,4 @@
-module.exports = function (config) {
+module.exports = (config) => {
   config.set({
 
     basePath: '..',
@@ -8,8 +8,9 @@ module.exports = function (config) {
       'bower_components/angular-mocks/angular-mocks.js', // angular mocks
 
       'src/js/app.js',
-      'src/js/directives/checkStrength/checkStrength.directive.js',
-      'src/js/directives/checkStrength/checkStrength.spec.js',
+      'src/js/directives/menuToggle/menuToggle.directive.js',
+      'src/js/directives/menuToggle/menuToggle.spec.js',
+      'public/views/**/*.html',
     ],
 
     exclude: [
@@ -21,20 +22,26 @@ module.exports = function (config) {
 
     preprocessors: {
       'src/js/**/*.js': ['babel', 'coverage'],
-      'test/**/*.js': ['babel']
+      'test/**/*.js': ['babel'],
+      'public/views/**/*.html': ['ng-html2js'],
+    },
+
+    ngHtml2JsPreprocessor: {
+      stripPrefix: 'public/',
+      moduleName: 'templates',
     },
 
     babelPreprocessor: {
       options: {
         presets: ['es2015'], // use the es2015 preset
-        sourceMap: 'inline' // inline source maps inside compiled files
+        sourceMap: 'inline', // inline source maps inside compiled files
       },
-      filename: function (file) {
+      filename: (file) => {
         return file.originalPath.replace(/\.js$/, '.es5.js');
       },
-      sourceFileName: function (file) {
+      sourceFileName: (file) => {
         return file.originalPath;
-      }
+      },
     },
 
     reporters: ['spec', 'coverage'],

@@ -99,6 +99,7 @@
     "karma-es5-shim": "0.0.4",
     "karma-es6-shim": "^1.0.0",
     "karma-jasmine": "^0.3.8",
+    "karma-ng-html2js-preprocessor": "^1.0.0",
     "karma-nodewebkit-launcher": "0.0.13",
     "karma-phantomjs-launcher": "^0.1.4",
     "karma-spec-reporter": "0.0.31",

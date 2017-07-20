@@ -1,6 +1,6 @@
 /* global angular */
 
-(function () {
+(() => {
   'use strict';
 
   /**
@@ -19,5 +19,4 @@
       templateUrl: 'views/includes/menu-toggle.html',
     };
   }
-
 })();
