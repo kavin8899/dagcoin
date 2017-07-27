@@ -1,8 +1,10 @@
+/* global angular */
+
 (function () {
   'use strict';
 
   /**
-   * @desc Firing scroll even on scrolling div with class name "'copayApp.directives'"
+   * @desc Firing scroll event on scrolling div with class name "scrollable". Changing transparency of a header.
    * @example <div class="scrollable"></div>
    */
   angular
