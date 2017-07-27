@@ -115,7 +115,7 @@
                 },
               },
             })
-            /* .state('walletHome', {
+            .state('walletHome', {
               url: '/',
               walletShouldBeComplete: true,
               needProfile: true,
@@ -126,7 +126,7 @@
                   templateUrl: 'views/walletHome.html',
                 },
               },
-            }) */
+            })
             .state('home', {
               url: '/',
               walletShouldBeComplete: true,
