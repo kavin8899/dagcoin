@@ -589,21 +589,6 @@
               icon: 'icon-history',
               link: 'history',
               state: 'history',
-            }, {
-              title: gettext('History'),
-              icon: 'icon-history',
-              link: 'history',
-              state: 'history',
-            }, {
-              title: gettext('History'),
-              icon: 'icon-history',
-              link: 'history',
-              state: 'history',
-            }, {
-              title: gettext('History'),
-              icon: 'icon-history',
-              link: 'history',
-              state: 'history',
             }];
 
             self.getSvgSrc = function (id) {
