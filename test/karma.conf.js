@@ -6,10 +6,9 @@ module.exports = (config) => {
     files: [
       'bower_components/angular/angular.js', // angular
       'bower_components/angular-mocks/angular-mocks.js', // angular mocks
-
       'src/js/app.js',
-      'src/js/directives/menuToggle/menuToggle.directive.js',
-      'src/js/directives/menuToggle/menuToggle.spec.js',
+      'src/js/directives/svgIcon/svgIcon.directive.js',
+      'src/js/directives/svgIcon/svgIcon.spec.js',
       'public/views/**/*.html',
     ],
 
@@ -24,6 +23,7 @@ module.exports = (config) => {
       'src/js/**/*.js': ['babel', 'coverage'],
       'test/**/*.js': ['babel'],
       'public/views/**/*.html': ['ng-html2js'],
+
     },
 
     ngHtml2JsPreprocessor: {

@@ -6,7 +6,17 @@
   const eventBus = require('byteballcore/event_bus.js');
   angular.module('copayApp.services')
       .factory('go',
-          ($window, $rootScope, $location, $state, profileService, nodeWebkit, notification, gettextCatalog, authService, $deepStateRedirect, $stickyState) => {
+          ($window,
+           $rootScope,
+           $location,
+           $state,
+           profileService,
+           nodeWebkit,
+           notification,
+           gettextCatalog,
+           authService,
+           $deepStateRedirect,
+           $stickyState) => {
             const root = {};
             let removeListener;
             const hideSidebars = function () {
@@ -186,7 +196,7 @@
             Categories=Office;Finance;\n\
             MimeType=x-scheme-handler/${pack.name};\n\
             X-Ubuntu-Touch=true\n\
-            X-Ubuntu-StageHint=SideStage\n`, {mode: '0755'}, (error) => {
+            X-Ubuntu-StageHint=SideStage\n`, { mode: '0755' }, (error) => {
                   if (error) {
                     throw Error(`failed to write desktop file: ${error}`);
                   }
@@ -254,7 +264,7 @@
                console.log('close err: '+err);
                });
                this.close(true);
-               });*/
+               }); */
             } else if (window.cordova) {
               // console.log("go service: setting temp handleOpenURL");
               // window.handleOpenURL = tempHandleUri;
@@ -275,7 +285,7 @@
                console.log('doc backbutton');
                if (root.onBackButton)
                root.onBackButton();
-               });*/
+               }); */
               document.addEventListener('resume', () => {
                 console.log('resume');
                 $rootScope.$emit('Local/Resume');
@@ -285,7 +295,13 @@
             root.handleUri = handleUri;
 
             return root;
-          });
+          }).factory('$exceptionHandler', ($log) => {
+    return function myExceptionHandler(exception, cause) {
+      console.log('angular $exceptionHandler');
+      $log.error(exception, cause);
+      eventBus.emit('uncaught_error', `An e xception occurred: ${exception}; cause: ${cause}`, exception);
+    };
+  });
 
   function tempHandleUri(url) {
     console.log(`saving open url ${url}`);
